@@ -1,10 +1,13 @@
 <?php
     require_once('app/Categoria.php');
+    require_once('app/Receta.php');
+    $receta = new Receta();
 
-    $categoiras =  new Categoria();
-    $categoriasLista = $categoiras->listar();
+    $categorias =  new Categoria();
+    $categoriasLista = $categorias->listar();
+    $recetasLista = $receta->listar();
+
     
-
 ?>
 
 <!DOCTYPE html>
@@ -50,15 +53,32 @@
         <div class="row mt-3">
 
             <div class="col-md-10">
-                <table class="table ">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>ingredientes</th>
                             <th>Categoria</th>
                             <th>Creador</th>
+                            <th >Acciones</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <?php
+                            foreach ($recetasLista as $recetaItem) {
+                                echo "
+                                <tr>
+                                    <td>". $recetaItem['nombre']. "</td>
+                                    <td>". $recetaItem['categoria']. "</td>
+                                    <td>". $recetaItem['usuario']. " " . $recetaItem['apellido']. "</td>
+                                    <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
+                                    <button class='btn btn-danger' type='button'>Eliminar</button><td>
+                                </tr>
+                                ";
+                            }
+
+                        ?>
+
+                    </tbody>
                 </table>
             </div>
             <div class="col-md-2">
