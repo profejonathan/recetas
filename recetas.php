@@ -115,7 +115,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancela</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button form="frmReceta" type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
