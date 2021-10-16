@@ -67,5 +67,11 @@ INNER JOIN categorias C ON C.idcategoria = R.idcategoria
 inner join usuarios U on U.idusuario = R.idusuario 
 
 
+select R.idreceta, R.nombre, R.idcategoria, R.pasos 
+from recetas R
+where R.idreceta = :idreceta 
+
+
+
 
 
