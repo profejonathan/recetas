@@ -13,7 +13,7 @@
 
         public function setIdReceta($idReceta){
             if ( is_numeric( $idReceta) ) {
-                $this->idRecete = $idReceta;
+                $this->idReceta = $idReceta;
 
             } else {
                 return 'Dato invalido';
@@ -128,12 +128,13 @@
         }
 
         // DELETE en la DB
-        public function borra(){
+        public function borrar(){
             $this->query = "DELETE FROM recetas
                             WHERE idreceta = :idreceta";
             $this->ejecutar( array( 
                 'idreceta' => $this->idReceta
             ));
+
         }
 
 

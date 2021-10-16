@@ -1,13 +1,17 @@
 <?php
     require_once('app/Categoria.php');
     require_once('app/Receta.php');
+    require_once('app/CategoriaAgrupada.php');
     $receta = new Receta();
 
     $categorias =  new Categoria();
+    $categoriasAgrupadas = new CategoriaAgrupada();
+
     $categoriasLista = $categorias->listar();
+    $categoriasAgrupadasLista = $categoriasAgrupadas->listar();
     $recetasLista = $receta->listar();
 
-    
+
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +75,7 @@
                                     <td>". $recetaItem['categoria']. "</td>
                                     <td>". $recetaItem['usuario']. " " . $recetaItem['apellido']. "</td>
                                     <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
-                                    <button class='btn btn-danger' type='button'>Eliminar</button><td>
+                                    <a class='btn btn-danger' href='eliminarReceta.php?idreceta=". $recetaItem['idreceta'] ."'>Eliminar</a><td>
                                 </tr>
                                 ";
                             }
@@ -106,6 +110,22 @@
                                 <label for="inputNombre">Nombre</label>
                               </div>
 
+                              <div class="form-floating m-3 col-md-11">
+                                <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
+                                  <option value="0">Seleccione una categoria</option>
+                                    <?php
+                                        foreach($categoriasAgrupadasLista as $item){
+                                            echo($item['titulo']);
+                                            echo("<option value='" . $item['idcategoriaAgrupadas'] ."'>" . $item['titulo']."</option>" );
+
+                                        }
+
+
+                                    ?>
+                                </select>
+                                <label for="cmbCategoria">Categoría</label>
+                              </div>
+
 
                               <div class="form-floating m-3 col-md-11">
                                 <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
@@ -120,7 +140,7 @@
 
                                     ?>
                                 </select>
-                                <label for="cmbCategoria">Categoría</label>
+                                <label for="cmbCategoria"> Sub Categoría</label>
                               </div>
 
                               <div class="form-floating m-3 col-md-11">

@@ -30,10 +30,5 @@
 
     }
 
-    // Prueba
-    $cat =  new CategoriaAgrupada();
-    $consulta = $cat->listar();
-
-    print_r($consulta)
 
 ?>

@@ -72,6 +72,7 @@ from recetas R
 where R.idreceta = :idreceta 
 
 
-
+insert into usuarios (idperfil, idpais, idgenero, nombre, apellido, correoElectronico, fechaNachimiento, `contraseña`)
+values( 1,1,1,'John', 'Do', 'john@mail.com', '2021-01-01', '123')
 
 
