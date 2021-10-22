@@ -1,15 +1,15 @@
 <?php
     require_once('app/Categoria.php');
-    require_once('app/Receta.php');
+    //require_once('app/Receta.php');
     require_once('app/CategoriaAgrupada.php');
-    $receta = new Receta();
+    //$receta = new Receta();
 
     $categorias =  new Categoria();
     $categoriasAgrupadas = new CategoriaAgrupada();
 
     $categoriasLista = $categorias->listar();
     $categoriasAgrupadasLista = $categoriasAgrupadas->listar();
-    $recetasLista = $receta->listar();
+    //$recetasLista = $receta->listar();
 
 
 ?>
@@ -23,6 +23,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -56,26 +58,23 @@
     <div class="container">
         <div class="row mt-3">
 
-            <div class="col-md-10">
+            <div class="col-md-6">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
+                       
                             <th>Categoria</th>
-                            <th>Creador</th>
                             <th >Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                            foreach ($recetasLista as $recetaItem) {
+                            foreach ($categoriasLista as $categoriaItem) {
                                 echo "
                                 <tr>
-                                    <td>". $recetaItem['nombre']. "</td>
-                                    <td>". $recetaItem['categoria']. "</td>
-                                    <td>". $recetaItem['usuario']. " " . $recetaItem['apellido']. "</td>
-                                    <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
-                                    <a class='btn btn-danger' href='eliminarReceta.php?idreceta=". $recetaItem['idreceta'] ."'>Eliminar</a><td>
+                                    <td>". $categoriaItem['descripcion']. "</td>
+                                    <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fa fa-edit'></i></button>
+                                    <a class='btn btn-danger' href='?idreceta=". $categoriaItem['idcategoria'] ."'><i class='fas fa-trash'></i></a><td>
                                 </tr>
                                 ";
                             }
@@ -86,7 +85,41 @@
                 </table>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Receta</button>
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Categoría</button>
+            </div>
+
+
+        </div>
+        <div class="row mt-3">
+
+            <div class="col-md-6">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                    
+                            <th>Categorías Agrupadas</th>
+                            <th >Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            foreach ($categoriasAgrupadasLista as $categoriaItem) {
+                                echo "
+                                <tr>
+                                    <td>". $categoriaItem['titulo']. "</td>
+                                    <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fa fa-edit'></i></button>
+                                    <a class='btn btn-danger' href='?idcategoriaAgrupadas=". $categoriaItem['idcategoriaAgrupadas'] ."'><i class='fas fa-trash'></i></a><td>
+                                </tr>
+                                ";
+                            }
+
+                        ?>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Categoría</button>
             </div>
 
 
