@@ -28,29 +28,38 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Recetas</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">Receta</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="recetas.php">Recetas</a>
+                        <a class="nav-link active" aria-current="page" href="recetas.php">Receta</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="categorias.php">Categorias</a>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <?php
+                                foreach ($categoriasLista as $categoriaItem) {
+                                    echo("<li><a class='dropdown-item' href='". $categoriaItem['idcategoria'] . "'>". $categoriaItem['grupo'] ."</a></li>");
+                                }
+                            ?>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-
                 </ul>
-
             </div>
         </div>
     </nav>
@@ -62,9 +71,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                       
+
                             <th>Categoria</th>
-                            <th >Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,7 +81,7 @@
                             foreach ($categoriasLista as $categoriaItem) {
                                 echo "
                                 <tr>
-                                    <td>". $categoriaItem['descripcion']. "</td>
+                                    <td>". $categoriaItem['grupo']. "</td>
                                     <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'><i class='fa fa-edit'></i></button>
                                     <a class='btn btn-danger' href='?idreceta=". $categoriaItem['idcategoria'] ."'><i class='fas fa-trash'></i></a><td>
                                 </tr>
@@ -85,7 +94,8 @@
                 </table>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Categoría</button>
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                        class="fas fa-plus"></i> Categoría</button>
             </div>
 
 
@@ -96,9 +106,9 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                    
+
                             <th>Categorías Agrupadas</th>
-                            <th >Acciones</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,7 +129,8 @@
                 </table>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Categoría</button>
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                        class="fas fa-plus"></i> Categoría</button>
             </div>
 
 
@@ -139,13 +150,13 @@
                     <form id="frmReceta" action="crearReceta.php" method="post">
                         <div class="row">
                             <div class="form-floating m-3 col-md-11">
-                                <input type="text" name="nombre" class="form-control" id="inputNombre" >
+                                <input type="text" name="nombre" class="form-control" id="inputNombre">
                                 <label for="inputNombre">Nombre</label>
-                              </div>
+                            </div>
 
-                              <div class="form-floating m-3 col-md-11">
+                            <div class="form-floating m-3 col-md-11">
                                 <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
-                                  <option value="0">Seleccione una categoria</option>
+                                    <option value="0">Seleccione una categoria</option>
                                     <?php
                                         foreach($categoriasAgrupadasLista as $item){
                                             echo($item['titulo']);
@@ -157,12 +168,12 @@
                                     ?>
                                 </select>
                                 <label for="cmbCategoria">Categoría</label>
-                              </div>
+                            </div>
 
 
-                              <div class="form-floating m-3 col-md-11">
+                            <div class="form-floating m-3 col-md-11">
                                 <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
-                                  <option value="0">Seleccione una categoria</option>
+                                    <option value="0">Seleccione una categoria</option>
                                     <?php
                                         foreach($categoriasLista as $item){
                                             echo($item['descripcion']);
@@ -174,16 +185,17 @@
                                     ?>
                                 </select>
                                 <label for="cmbCategoria"> Sub Categoría</label>
-                              </div>
+                            </div>
 
-                              <div class="form-floating m-3 col-md-11">
-                                <input type="text" name="ingredientes" class="form-control" id="inputIngredientes" >
+                            <div class="form-floating m-3 col-md-11">
+                                <input type="text" name="ingredientes" class="form-control" id="inputIngredientes">
                                 <label for="inputIngredientes">ingredientes</label>
-                              </div>
-                              <div class="form-floating m-3 col-md-11">
-                                <textarea name="pasos" class="form-control"  id="textPasos" style="height: 200px"></textarea>
+                            </div>
+                            <div class="form-floating m-3 col-md-11">
+                                <textarea name="pasos" class="form-control" id="textPasos"
+                                    style="height: 200px"></textarea>
                                 <label for="textPasos">Pasos</label>
-                              </div>
+                            </div>
                         </div>
                     </form>
                 </div>

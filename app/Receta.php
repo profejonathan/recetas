@@ -4,7 +4,6 @@
     class Receta extends ConexionPDO{
         private $idReceta;
         private $idUsuario;
-        private $idPais;
         private $idCategoria;
         private $nombre;
         private $ingredientes;
@@ -29,14 +28,6 @@
             }
         }
 
-        public function setIdPais($idPais){
-            if ( is_numeric( $idPais) ) {
-                $this->idPais = $idPais;
-
-            } else {
-                return 'Dato invalido';
-            }
-        }
 
         public function setIdCategoria($idCategoria){
             if ( is_numeric( $idCategoria) ) {
@@ -88,13 +79,29 @@
         }
 
         // Realiza SELECT de todas las recetas con datos basicos
-        public function listar(){
-            $this->query = "SELECT R.idreceta, R.nombre, R.idcategoria, C.descripcion AS 'categoria', R.idusuario
-                                , U.apellido, U.nombre AS 'usuario'
+        public function listarTodas(){
+            $this->query = "SELECT R.idreceta, R.nombre, R.idcategoriaAgrupadas, CA.titulo AS 'grupo', 
+                                COUNT(RC.idcomentario) AS 'comentarios'
                             FROM recetas R
-                            INNER JOIN categorias C ON C.idcategoria = R.idcategoria
-                            INNER JOIN usuarios U ON U.idusuario = R.idusuario ";
+                            INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
+                            LEFT JOIN recetaComentarios RC ON RC.idreceta = R.idreceta 
+                            GROUP BY R.idreceta, CA.idcategoriaAgrupadas, RC.idcomentario ";
             return $this->getRegistros();
+        }
+
+
+        // Realiza SELECT de las recetas con datos basicos por categoria
+        public function listarCategoria(){
+            $this->query = "SELECT R.idreceta, R.nombre, R.idcategoriaAgrupadas, CA.titulo AS 'grupo', 
+                                COUNT(RC.idcomentario) AS 'comentarios'
+                            FROM recetas R
+                            INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
+                            LEFT JOIN recetaComentarios RC ON RC.idreceta = R.idreceta 
+                            WHERE CA.idcategoria = :categoriaId
+                            GROUP BY R.idreceta, CA.idcategoriaAgrupadas, RC.idcomentario ";
+            return $this->getRegistros(array(
+                'categoriaId' => $this->idCategoria
+            ));
         }
 
         // Realiza SELECT con todos los datos de la receta por idreceta

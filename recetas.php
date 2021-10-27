@@ -3,14 +3,19 @@
     require_once('app/Receta.php');
     require_once('app/CategoriaAgrupada.php');
     $receta = new Receta();
-
     $categorias =  new Categoria();
-    $categoriasAgrupadas = new CategoriaAgrupada();
-
     $categoriasLista = $categorias->listar();
-    $categoriasAgrupadasLista = $categoriasAgrupadas->listar();
-    $recetasLista = $receta->listar();
 
+
+    if( isset($_GET['categoria'])){
+        $idCategoria = $_GET['categoria'];
+        if ( is_numeric( $idCategoria)){
+            $receta->setIdCategoria($idCategoria);
+            $recetasLista = $receta->listarCategoria();
+        }
+    } else {
+        $recetasLista = $receta->listarTodas();
+    }
 
 ?>
 
@@ -28,27 +33,35 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Recetas</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">Receta</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="recetas.php">Recetas</a>
+                        <a class="nav-link active" aria-current="page" href="recetas.php">Receta</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="categorias.php">Categorias</a>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <?php
+                                foreach ($categoriasLista as $categoriaItem) {
+                                    echo("<li><a class='dropdown-item' href='?categoria=". $categoriaItem['idcategoria'] . "'>". $categoriaItem['grupo'] ."</a></li>");
+                                }
+                            ?>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
-
                 </ul>
-
             </div>
         </div>
     </nav>
@@ -61,9 +74,9 @@
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Categoria</th>
-                            <th>Creador</th>
-                            <th >Acciones</th>
+                            <th>Grupo</th>
+                            <th>Comentarios</th>
+                            <th>Foto</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,8 +85,8 @@
                                 echo "
                                 <tr>
                                     <td>". $recetaItem['nombre']. "</td>
-                                    <td>". $recetaItem['categoria']. "</td>
-                                    <td>". $recetaItem['usuario']. " " . $recetaItem['apellido']. "</td>
+                                    <td>". $recetaItem['grupo']. "</td>
+                                    <td>". $recetaItem['comentarios']. "</td>
                                     <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
                                     <a class='btn btn-danger' href='eliminarReceta.php?idreceta=". $recetaItem['idreceta'] ."'>Eliminar</a><td>
                                 </tr>
@@ -112,15 +125,11 @@
 
                               <div class="form-floating m-3 col-md-11">
                                 <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
-                                  <option value="0">Seleccione una categoria</option>
+                                  <option value="0">Categoria</option>
                                     <?php
-                                        foreach($categoriasAgrupadasLista as $item){
-                                            echo($item['titulo']);
-                                            echo("<option value='" . $item['idcategoriaAgrupadas'] ."'>" . $item['titulo']."</option>" );
-
+                                        foreach($categoriasLista as $item){
+                                            echo("<option value='" . $item['idcategoria'] ."'>" . $item['grupo']."</option>" );
                                         }
-
-
                                     ?>
                                 </select>
                                 <label for="cmbCategoria">Categoría</label>
@@ -128,17 +137,8 @@
 
 
                               <div class="form-floating m-3 col-md-11">
-                                <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
-                                  <option value="0">Seleccione una categoria</option>
-                                    <?php
-                                        foreach($categoriasLista as $item){
-                                            echo($item['descripcion']);
-                                            echo("<option value='" . $item['idcategoria'] ."'>" . $item['descripcion']."</option>" );
-
-                                        }
-
-
-                                    ?>
+                                <select name="idCategoriaAgrupada" class="form-select" id="idCategoriaAgrupada" aria-label="CategoriaAgrupada">
+                                  <option value="0">Sub categoría</option>
                                 </select>
                                 <label for="cmbCategoria"> Sub Categoría</label>
                               </div>

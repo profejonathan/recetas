@@ -11,9 +11,8 @@
         }
 
         public function listar(){
-            $this->query = "SELECT C.idcategoria, c.descripcion, CA.titulo AS 'CategoriaAgrupada'
-                            FROM  categorias C
-                            INNER JOIN categoriaagrupadas CA ON CA.idcategoriaAgrupadas = C.idcategoriaAgrupadas ";
+            $this->query = "SELECT C.idcategoria, C.grupo
+                            FROM  categorias C";
             return $this->getRegistros();
             
         }
