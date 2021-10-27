@@ -4,7 +4,7 @@
     class Receta extends ConexionPDO{
         private $idReceta;
         private $idUsuario;
-        private $idCategoria;
+        private $idCategoriaAgrupadas;
         private $nombre;
         private $ingredientes;
         private $pasos;
@@ -27,11 +27,19 @@
                 return 'Dato invalido';
             }
         }
-
-
         public function setIdCategoria($idCategoria){
             if ( is_numeric( $idCategoria) ) {
                 $this->idCategoria = $idCategoria;
+
+            } else {
+                return 'Dato invalido';
+            }
+        }
+
+
+        public function setCategoriaAgrupadas($idCategoriaAgrupadas){
+            if ( is_numeric( $idCategoriaAgrupadas) ) {
+                $this->idCategoriaAgrupadas = $idCategoriaAgrupadas;
 
             } else {
                 return 'Dato invalido';
@@ -64,13 +72,12 @@
 
         // Realiza el insert en al DB
         public function crear(){
-            $this->query= "INSERT INTO recetas (idusuario, idpais, idcategoria, nombre, ingredientes, pasos)
-                            VALUES( :idusuario, :idpais, :idcategoria, :nombre, :ingredientes, :pasos)";
+            $this->query= "INSERT INTO recetas (idusuario, idcategoriaAgrupadas, nombre, ingredientes, pasos)
+                            VALUES( :idusuario, :idCategoriaAgrupadas, :nombre, :ingredientes, :pasos)";
 
             $this->ejecutar( array(
                     ':idusuario' => $this->idUsuario, 
-                    ':idpais' => $this->idPais,
-                    ':idcategoria' => $this->idCategoria,
+                    ':idCategoriaAgrupadas' => $this->idCategoriaAgrupadas,
                     ':nombre' => $this->nombre,
                     ':ingredientes' => $this->ingredientes,
                     ':pasos' => $this->pasos

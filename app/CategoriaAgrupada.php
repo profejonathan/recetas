@@ -4,7 +4,7 @@
     class CategoriaAgrupada extends ConexionPDO{
         private $titulo;
         private $id;
-        private $idcategoria
+        private $idcategoria;
 
         public function setId($id){
             $this->id = $id;
@@ -40,7 +40,9 @@
             $this->query = "SELECT CA.idcategoriaAgrupadas, CA.titulo 
                             FROM categoriaAgrupadas CA
                             WHERE CA.idcategoria = :idcategoria";
-            $consulta = $this->getRegistros();
+            $consulta = $this->getRegistros(array(
+                'idcategoria' => $this->idcategoria
+            ));
             return $consulta;
         }
 

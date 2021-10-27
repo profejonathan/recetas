@@ -8,7 +8,7 @@
     $categoriasAgrupadas = new CategoriaAgrupada();
 
     $categoriasLista = $categorias->listar();
-    $categoriasAgrupadasLista = $categoriasAgrupadas->listar();
+    $categoriasAgrupadasLista = $categoriasAgrupadas->listarTodas();
     //$recetasLista = $receta->listar();
 
 
@@ -87,9 +87,7 @@
                                 </tr>
                                 ";
                             }
-
                         ?>
-
                     </tbody>
                 </table>
             </div>

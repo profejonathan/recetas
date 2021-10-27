@@ -90,7 +90,7 @@ INSERT INTO categoriaAgrupadas (idcategoriaAgrupadas, titulo,idcategoria) VALUES
 INSERT INTO categoriaAgrupadas (idcategoriaAgrupadas, titulo,idcategoria) VALUES (22,"Ravioles",5);
 
 INSERT INTO usuarios(nombre, apellido, correoElectronico, contrasena)
-VALUES('John', 'Do', 'jdo@mail.com', '1234'), ('Jane', 'Do', 'janedo@mail.com', '1234')
+VALUES('John', 'Do', 'jdo@mail.com', '1234'), ('Jane', 'Do', 'janedo@mail.com', '1234'), ('Jane', 'Do', 'janedo@mail.com', '1234')
 
 
 INSERT INTO recetas (idusuario, nombre, ingredientes,idcategoriaAgrupadas,pasos ) VALUES (1,"Milanesa con pure","papas, pan rallado, carne, huevo, perejil, ajo",10,"cortamos la carne, la pasamos por huevo, enpanamos y freimos");

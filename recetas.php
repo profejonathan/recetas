@@ -28,6 +28,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
 </head>
 
 <body>
@@ -77,6 +78,7 @@
                             <th>Grupo</th>
                             <th>Comentarios</th>
                             <th>Foto</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,19 +89,20 @@
                                     <td>". $recetaItem['nombre']. "</td>
                                     <td>". $recetaItem['grupo']. "</td>
                                     <td>". $recetaItem['comentarios']. "</td>
-                                    <td><button class='btn btn-info' type='button' data-bs-toggle='modal' data-bs-target='#exampleModal'>Editar</button>
-                                    <a class='btn btn-danger' href='eliminarReceta.php?idreceta=". $recetaItem['idreceta'] ."'>Eliminar</a><td>
+                                    <td></td>
+                                    <td><button class='btn btn-info' type='button' onclick='verReceta(" . $recetaItem['idreceta'] .")' ><i class='fas fa-edit'></i></button>
+                                    <a class='btn btn-danger' onclick='eliminarReceta(" . $recetaItem['idreceta'] .")' href='#'><i class='fas fa-trash'></i></a><td>
                                 </tr>
                                 ";
                             }
-
                         ?>
-
                     </tbody>
                 </table>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Crear Receta</button>
+                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalReceta">
+                <i class="fas fa-plus"></i> Receta
+            </button>
             </div>
 
 
@@ -108,7 +111,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalReceta" aria-hidden="true">
+    <div class="modal fade" id="modalReceta" tabindex="-1" aria-labelledby="modalReceta" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -137,10 +140,10 @@
 
 
                               <div class="form-floating m-3 col-md-11">
-                                <select name="idCategoriaAgrupada" class="form-select" id="idCategoriaAgrupada" aria-label="CategoriaAgrupada">
+                                <select name="idCategoriaAgrupada" class="form-select" id="cmbCategoriaAgrupada" aria-label="CategoriaAgrupada">
                                   <option value="0">Sub categoría</option>
                                 </select>
-                                <label for="cmbCategoria"> Sub Categoría</label>
+                                <label for="cmbCategoriaAgrupada"> Sub Categoría</label>
                               </div>
 
                               <div class="form-floating m-3 col-md-11">
@@ -164,6 +167,7 @@
 
 
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
