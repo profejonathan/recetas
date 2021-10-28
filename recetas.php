@@ -29,12 +29,15 @@
     <title>Recetas</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg sticky-top  navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Receta</a>
+            <a class="navbar-brand" href="#">
+            <img src="assets/img/icon.png" class="d-inline-block align-top" alt="metric logo" width="32" height="32"> 
+            Receta</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -89,7 +92,7 @@
                                     <td>". $recetaItem['nombre']. "</td>
                                     <td>". $recetaItem['grupo']. "</td>
                                     <td>". $recetaItem['comentarios']. "</td>
-                                    <td></td>
+                                    <td><img src='...' class='img-thumbnail' alt=''></td>
                                     <td><button class='btn btn-info' type='button' onclick='verReceta(" . $recetaItem['idreceta'] .")' ><i class='fas fa-edit'></i></button>
                                     <a class='btn btn-danger' onclick='eliminarReceta(" . $recetaItem['idreceta'] .")' href='#'><i class='fas fa-trash'></i></a><td>
                                 </tr>
@@ -119,7 +122,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="frmReceta" action="crearReceta.php" method="post">
+                    <form id="frmReceta" action="crearReceta.php" method="post" enctype="multipart/form-data">
                         <input id="inputId" name="idreceta" type="text" value="0" style="display: none;">
                         <div class="row m-3">
                             <div class="form-floating col-md-12">
@@ -166,7 +169,8 @@
                                 <label for="textPasos">Pasos</label>
                             </div>
                             <div class="col-md-5">
-
+                                <input name="foto" class="form-control" type="file" accept="image/*">
+                                <img id="boxImg" src="" class="img-thumbnail" alt="">
                             </div>
                         </div>
                     </form>

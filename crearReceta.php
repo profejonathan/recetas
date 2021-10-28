@@ -16,6 +16,11 @@
         $ingredientes = $_POST['ingredientes'];
         $pasos = $_POST['pasos'];
 
+        $ruta = "uploads/";
+        $ruta = $ruta . basename( $_FILES['foto']['name']); 
+
+
+
         $receta = new Receta();
         $receta->setIdReceta($idreceta);
         $receta->setIdUsuario($idUsuario);
@@ -25,9 +30,15 @@
         $receta->setPasos($pasos);
 
         if ( $idreceta == '0'){
+            if(move_uploaded_file($_FILES['foto']['tmp_name'], $ruta)) {
+                $receta->setFotourl( 'uploads/'.basename( $_FILES['foto']['name']));
+            } else{
+                echo("Ha ocurrido un error al subir la foto");
+            }
             $receta->crear();
 
         }else {
+            // Implementar Lógica Actualizar imagen
             $receta->actualizar();
         }
 

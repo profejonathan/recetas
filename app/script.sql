@@ -15,6 +15,7 @@ CREATE TABLE recetas(
 	ingredientes VARCHAR(500) NOT NULL,
 	idcategoriaAgrupadas INT(11) NOT NULL,
 	pasos VARCHAR(5000) NOT NULL,
+	fotourl VARCHAR(5000) NULL,
 	PRIMARY KEY (idreceta)
 );
 

@@ -8,7 +8,8 @@
         private $nombre;
         private $ingredientes;
         private $pasos;
-        
+        private $fotourl;
+
 
         public function setIdReceta($idReceta){
             if ( is_numeric( $idReceta) ) {
@@ -70,17 +71,26 @@
             }
         }
 
+        public function setFotourl($fotourl){
+            if ( strlen($fotourl) <= 5000){
+                $this->fotourl = $fotourl;
+            } else {
+                return "Logitud de caracteres exedida";
+            }
+        }
+
         // Realiza el insert en al DB
         public function crear(){
-            $this->query= "INSERT INTO recetas (idusuario, idcategoriaAgrupadas, nombre, ingredientes, pasos)
-                            VALUES( :idusuario, :idCategoriaAgrupadas, :nombre, :ingredientes, :pasos)";
+            $this->query= "INSERT INTO recetas (idusuario, idcategoriaAgrupadas, nombre, ingredientes, pasos, fotourl)
+                            VALUES( :idusuario, :idCategoriaAgrupadas, :nombre, :ingredientes, :pasos, :fotourl)";
 
             $this->ejecutar( array(
                     ':idusuario' => $this->idUsuario, 
                     ':idCategoriaAgrupadas' => $this->idCategoriaAgrupadas,
                     ':nombre' => $this->nombre,
                     ':ingredientes' => $this->ingredientes,
-                    ':pasos' => $this->pasos
+                    ':pasos' => $this->pasos,
+                    ':fotourl' => $this->fotourl
             ));
 
         }
@@ -88,7 +98,7 @@
         // Realiza SELECT de todas las recetas con datos basicos
         public function listarTodas(){
             $this->query = "SELECT R.idreceta, R.nombre, R.idcategoriaAgrupadas, CA.titulo AS 'grupo', 
-                                COUNT(RC.idcomentario) AS 'comentarios'
+                                COUNT(RC.idcomentario) AS 'comentarios', R.fotourl
                             FROM recetas R
                             INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
                             LEFT JOIN recetaComentarios RC ON RC.idreceta = R.idreceta 
@@ -100,7 +110,7 @@
         // Realiza SELECT de las recetas con datos basicos por categoria
         public function listarCategoria(){
             $this->query = "SELECT R.idreceta, R.nombre, R.idcategoriaAgrupadas, CA.titulo AS 'grupo', 
-                                COUNT(RC.idcomentario) AS 'comentarios'
+                                COUNT(RC.idcomentario) AS 'comentarios', R.fotourl
                             FROM recetas R
                             INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
                             LEFT JOIN recetaComentarios RC ON RC.idreceta = R.idreceta 
@@ -114,7 +124,7 @@
         // Realiza SELECT con todos los datos de la receta por idreceta
         public function detalle(){
             $this->query = "SELECT R.idreceta, R.nombre, R.ingredientes, R.idcategoriaAgrupadas, R.pasos,
-                                C.idcategoria, CA.titulo AS 'categoriaAgrupada'
+                                C.idcategoria, CA.titulo AS 'categoriaAgrupada', R.fotourl
                             FROM recetas R
                             INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
                             INNER JOIN categorias C ON C.idcategoria = CA.idcategoria 

@@ -4,6 +4,8 @@ let txtId = document.getElementById('inputId');
 let txtNombre =  document.getElementById('inputNombre');
 let txtIngredientes = document.getElementById('inputIngredientes');
 let txtPasos = document.getElementById('textPasos');
+let boxImg = document.getElementById('boxImg');
+
 let modalReceta = new bootstrap.Modal(document.getElementById('modalReceta'), {})
 
 cmbCategoria.addEventListener('change', ()=>{
@@ -72,7 +74,7 @@ const verReceta = (idreceta) =>{
                     option.innerText = grupo.titulo
                     cmbCategoriaAgrupada.appendChild(option);
                     cmbCategoriaAgrupada.value = receta.idcategoriaAgrupadas
-
+                    boxImg.setAttribute('src', receta.fotourl);
                 });
             })
         }
@@ -89,4 +91,6 @@ const frmClear = ()=>{
     cmbCategoria.value = '';
     cmbCategoriaAgrupada.value = '';
     txtPasos.value = ''
+    boxImg.setAttribute('src', '');
+
 }
