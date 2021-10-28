@@ -100,7 +100,7 @@
                 </table>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalReceta">
+                <button onclick="frmClear();" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modalReceta">
                 <i class="fas fa-plus"></i> Receta
             </button>
             </div>
@@ -111,8 +111,8 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="modalReceta" tabindex="-1" aria-labelledby="modalReceta" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade scrollable" id="modalReceta" tabindex="-1" aria-labelledby="modalReceta" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalReceta">Receta</h5>
@@ -120,40 +120,54 @@
                 </div>
                 <div class="modal-body">
                     <form id="frmReceta" action="crearReceta.php" method="post">
-                        <div class="row">
-                            <div class="form-floating m-3 col-md-11">
-                                <input type="text" name="nombre" class="form-control" id="inputNombre" >
+                        <input id="inputId" name="idreceta" type="text" value="0" style="display: none;">
+                        <div class="row m-3">
+                            <div class="form-floating col-md-12">
+                                <input type="text" name="nombre" class="form-control" id="inputNombre" required>
                                 <label for="inputNombre">Nombre</label>
-                              </div>
+                            </div>
+                        </div>
+                        <div class="row m-3">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="form-floating col-md-12">
+                                        <input type="text" name="ingredientes" class="form-control" id="inputIngredientes" required>
+                                        <label for="inputIngredientes">ingredientes</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div class="form-floating  col-md-4">
+                                        <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria" required>
+                                            <option value="">Categoria</option>
+                                            <?php
+                                                foreach($categoriasLista as $item){
+                                                    echo("<option value='" . $item['idcategoria'] ."'>" . $item['grupo']."</option>" );
+                                                }
+                                                ?>
+                                        </select>
+                                        <label for="cmbCategoria">Categoría</label>
+                                    </div>
+                                    <div class="form-floating col-md-8">
+                                        <select name="idCategoriaAgrupada" class="form-select" id="cmbCategoriaAgrupada" aria-label="CategoriaAgrupada" required>
+                                            <option value="">Sub categoría</option>
+                                        </select>
+                                        <label for="cmbCategoriaAgrupada"> Sub Categoría</label>
+                                    </div>
+                                </div>
+                            </div>
 
-                              <div class="form-floating m-3 col-md-11">
-                                <select name="idCategoria" class="form-select" id="cmbCategoria" aria-label="Categoria">
-                                  <option value="0">Categoria</option>
-                                    <?php
-                                        foreach($categoriasLista as $item){
-                                            echo("<option value='" . $item['idcategoria'] ."'>" . $item['grupo']."</option>" );
-                                        }
-                                    ?>
-                                </select>
-                                <label for="cmbCategoria">Categoría</label>
-                              </div>
-
-
-                              <div class="form-floating m-3 col-md-11">
-                                <select name="idCategoriaAgrupada" class="form-select" id="cmbCategoriaAgrupada" aria-label="CategoriaAgrupada">
-                                  <option value="0">Sub categoría</option>
-                                </select>
-                                <label for="cmbCategoriaAgrupada"> Sub Categoría</label>
-                              </div>
-
-                              <div class="form-floating m-3 col-md-11">
-                                <input type="text" name="ingredientes" class="form-control" id="inputIngredientes" >
-                                <label for="inputIngredientes">ingredientes</label>
-                              </div>
-                              <div class="form-floating m-3 col-md-11">
-                                <textarea name="pasos" class="form-control"  id="textPasos" style="height: 200px"></textarea>
+                        </div>
+                        <div class="row m-3">
+                             
+                            <div class="form-floating col-md-7">
+                                <textarea name="pasos" class="form-control"  id="textPasos" style="height: 200px" required></textarea>
                                 <label for="textPasos">Pasos</label>
-                              </div>
+                            </div>
+                            <div class="col-md-5">
+
+                            </div>
                         </div>
                     </form>
                 </div>

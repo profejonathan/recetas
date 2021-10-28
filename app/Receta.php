@@ -113,8 +113,11 @@
 
         // Realiza SELECT con todos los datos de la receta por idreceta
         public function detalle(){
-            $this->query = "SELECT R.idreceta, R.nombre, R.idcategoria, R.pasos 
+            $this->query = "SELECT R.idreceta, R.nombre, R.ingredientes, R.idcategoriaAgrupadas, R.pasos,
+                                C.idcategoria, CA.titulo AS 'categoriaAgrupada'
                             FROM recetas R
+                            INNER JOIN categoriaAgrupadas CA ON CA.idcategoriaAgrupadas = R.idcategoriaAgrupadas
+                            INNER JOIN categorias C ON C.idcategoria = CA.idcategoria 
                             WHERE R.idreceta = :idreceta ";
             return $this->getRegistros(array(
                 'idreceta' =>  $this->idReceta
@@ -124,15 +127,15 @@
 
 
         // Implementar luego
-        public function editar(){
+        public function actualizar(){
             $this->query = "UPDATE recetas
-                            SET idpais = :idpais,
+                            SET idcategoriaAgrupadas = :idcategoriaAgrupadas,
                                 nombre = :nombre,
                                 ingredientes = :ingredientes,
                                 pasos = :pasos
                             WHERE idreceta  = :idreceta";
             $this->ejecutar( array(
-                ':idpais' => $this->idPais,
+                ':idcategoriaAgrupadas' => $this->idCategoriaAgrupadas,
                 ':nombre' => $this->nombre,
                 ':ingredientes' => $this->ingredientes,
                 ':pasos' => $this->pasos,
